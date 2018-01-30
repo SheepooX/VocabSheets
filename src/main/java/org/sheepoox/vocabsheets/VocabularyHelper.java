@@ -20,9 +20,6 @@ import java.util.logging.Logger;
  */
 public class VocabularyHelper {
 
-    private static final String DIR = "C:\\Users\\SheepooX\\Desktop\\voc";
-    private static final String NL = "\r\n";
-
     private final static Logger LOGGER = Logger.getLogger(VocabularyHelper.class.getName());
 
     public static void writeVocab(DatedVocabulary vocabulary, String lang) {
@@ -30,10 +27,10 @@ public class VocabularyHelper {
     }
 
     public static void writeVocabToFile(DatedVocabulary vocabulary, String lang) {
-        LOGGER.log(Level.INFO, "Writing vocabulary: " + vocabulary + "\nto '" + DIR + "'");
-        for (Map.Entry<Date, DatedVocabulary.Vocabulary> vocab : vocabulary.vocabularies.entrySet()) {
-            final String NAME = lang + " " + vocab.getKey().getDate() + "-" + (vocab.getKey().getMonth() + 1) + "-" + (vocab.getKey().getYear() + 1900);
-            File file = new File(DIR + "\\" + NAME + ".txt");
+        LOGGER.log(Level.INFO, "Writing vocabulary: " + vocabulary + "\nto '" + Settings.DIR + "'");
+        for (Map.Entry<String, DatedVocabulary.Vocabulary> vocab : vocabulary.vocabularies.entrySet()) {
+            final String name = vocab.getValue().FROM + "-" + vocab.getValue().TO + " " + vocab.getKey();
+            File file = new File(Settings.DIR + "\\" + name + ".txt");
             if (!file.exists()) {
                 try {
                     file.createNewFile();
@@ -43,9 +40,9 @@ public class VocabularyHelper {
             }
             try {
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "Cp1250"));
-                writer.write("# " + NAME + NL);
+                writer.write("# " + name + Settings.NL);
                 for (Map.Entry<String, String> pair : vocab.getValue().vocabulary.entrySet()) {
-                    writer.write(pair.getKey() + ":" + pair.getValue() + NL);
+                    writer.write(pair.getKey() + ":" + pair.getValue() + Settings.NL);
                 }
                 writer.close();
             } catch (IOException e) {

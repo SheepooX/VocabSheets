@@ -27,7 +27,7 @@ public class SheetsAuthorizer {
 
     /** Directory to store user credentials for this application. */
     private final java.io.File DATA_STORE_DIR = new java.io.File(
-            System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart");
+            System.getProperty("user.home"), ".credentials" + System.getProperty("file.separator") + Settings.APPLICATION_NAME);
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private FileDataStoreFactory DATA_STORE_FACTORY;

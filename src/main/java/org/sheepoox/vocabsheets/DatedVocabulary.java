@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class DatedVocabulary {
 
-    public final Map<Date, Vocabulary> vocabularies = new HashMap<>();
+    public final Map<String, Vocabulary> vocabularies = new HashMap<>();
 
     @Override
     public String toString() {

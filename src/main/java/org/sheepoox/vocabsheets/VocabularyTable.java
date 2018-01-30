@@ -26,23 +26,22 @@ public class VocabularyTable extends Table {
         if (values.get("values") == null || values.getValues().size() == 0) {
             System.out.println("No data found.");
         } else {
-            Date currentDate = null;
+            String currentName = null;
             DatedVocabulary.Vocabulary currentVocabulary = null;
             List<List<Object>> rows = (List<List<Object>>) this.values.get("values");
             for (List<Object> row : rows) {
                 if (row.size() != 3) continue;
                 if (!row.get(0).toString().isEmpty()) {
                     if (currentVocabulary != null) {
-                        datedVocabulary.vocabularies.put(currentDate, currentVocabulary);
+                        datedVocabulary.vocabularies.put(currentName, currentVocabulary);
                     }
-                    String[] dateSplit = row.get(0).toString().split("/");
-                    currentDate = new Date(Integer.valueOf(dateSplit[2]) - 1900, Integer.valueOf(dateSplit[1]) - 1, Integer.valueOf(dateSplit[0]));
-                    String[] nameSplit = name.split("-");
-                    currentVocabulary = new DatedVocabulary.Vocabulary(nameSplit[0], nameSplit[1]);
+                    currentName = row.get(0).toString().replaceAll("[/,]", "-");
+                    String[] languageSplit = name.split("-");
+                    currentVocabulary = new DatedVocabulary.Vocabulary(languageSplit[0], languageSplit[1]);
                 }
                 currentVocabulary.vocabulary.put(row.get(1).toString(), row.get(2).toString());
             }
-            datedVocabulary.vocabularies.put(currentDate, currentVocabulary);
+            datedVocabulary.vocabularies.put(currentName, currentVocabulary);
         }
     }
 
@@ -54,6 +53,19 @@ public class VocabularyTable extends Table {
                 ", spreadsheetId='" + spreadsheetId + '\'' +
                 ", values=" + values +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VocabularyTable)) return false;
+        VocabularyTable that = (VocabularyTable) o;
+        return Objects.equals(this.hashCode(), that.hashCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), datedVocabulary);
     }
 
     public DatedVocabulary getDatedVocabulary() {

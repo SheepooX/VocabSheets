@@ -15,18 +15,15 @@ import java.util.logging.Logger;
  */
 public class Main {
 
-
-    private static final String VOCABULARY_RANGE = "B3:D";
-    private static final String APPLICATION_NAME = "org.sheepoox.vocabsheets";
-
     private static final SheetsAuthorizer SHEETS_AUTHORIZER = SheetsAuthorizer.getInstance();
     private final static Logger LOGGER = Logger.getLogger(VocabularyHelper.class.getName());
 
     public static void main(String... args) throws IOException {
-        Sheets service = SHEETS_AUTHORIZER.getSheetsService(APPLICATION_NAME);
+        Sheets service = SHEETS_AUTHORIZER.getSheetsService(Settings.APPLICATION_NAME);
         TableExtractor tableExtractor = new TableExtractor(service);
 
-        Table tableOfTables = tableExtractor.extractTable("Tables", "1QpkuRYtARP9YveXqJXTisLEfsUxWTJOaYXhzlqXuTlE", "A1:C");
+        // MASTER TABLE ID
+        Table tableOfTables = tableExtractor.extractTable("Tables", Settings.MASTER_TABLE_ID, Settings.MASTER_TABLE_RANGE);
 
         List<List<Object>> tables = (List<List<Object>>) tableOfTables.getValues().get("values");
         tables.removeIf((table) -> {
@@ -37,7 +34,7 @@ public class Main {
         tables.forEach((row) -> {
             VocabularyTable vocabularyTable = null;
             try {
-                vocabularyTable = new VocabularyTable(tableExtractor.extractTable(row.get(0).toString(), row.get(2).toString(), VOCABULARY_RANGE));
+                vocabularyTable = new VocabularyTable(tableExtractor.extractTable(row.get(0).toString(), row.get(2).toString(), Settings.VOCABULARY_RANGE));
             } catch (IOException e) {
                 e.printStackTrace();
             }
