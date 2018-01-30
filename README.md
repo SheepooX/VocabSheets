@@ -10,4 +10,4 @@ A table with vocabulary looks like this:
 https://docs.google.com/spreadsheets/d/1PtLAScuKzbXs_7sp-I0hsR6nwk2DhSWR8vjZ8kOqSeg/
 
 The Master Table ID can be set in Settings.java.
-In fureture it will be in a separate file.
+In future it will be in a separate file.
