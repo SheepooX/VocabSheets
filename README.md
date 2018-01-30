@@ -9,4 +9,5 @@ An example Master Table can be found here: https://docs.google.com/spreadsheets/
 A table with vocabulary looks like this:
 https://docs.google.com/spreadsheets/d/1PtLAScuKzbXs_7sp-I0hsR6nwk2DhSWR8vjZ8kOqSeg/
 
-This can be configured in Settings.java
+The Master Table ID can be set in Settings.java.
+In fureture it will be in a separate file.
