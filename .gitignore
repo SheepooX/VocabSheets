@@ -1,0 +1,12 @@
+
+/.gradle/
+/.idea/dictionaries/
+
+/gradlew
+/build.gradle
+/settings.gradle
+/gradlew.bat
+/.idea/workspace.xml
+!/.idea/artifacts/
+/out/
+/src/main/resources/client_secret.json
